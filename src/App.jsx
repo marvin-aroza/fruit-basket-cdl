@@ -5,32 +5,35 @@ import Header from "./components/common/Header/Header";
 import Product from "./components/pages/Product/Product";
 
 const products = [
-    {
-      id: 1,
-      price: 50,
-      specialOffer: { quantity: 3, price: 130 },
-      name: "Apple",
-    },
-    { id: 2, price: 30, name: "Banana" },
-    { id: 3, price: 20, name: "Cat", specialOffer: { quantity: 2, price: 35 } },
-    { id: 4, price: 15, name: "Dragon Fruit" },
-  ];
+  {
+    id: 1,
+    price: 50,
+    specialOffer: { quantity: 3, price: 130 },
+    name: "Apple",
+  },
+  { id: 2, price: 30, name: "Banana" },
+  { id: 3, price: 20, name: "Cat", specialOffer: { quantity: 2, price: 35 } },
+  { id: 4, price: 15, name: "Dragon Fruit" },
+];
 
 function App() {
+  const [productList, setProducts] = useState([]);
+  const [productInCartList, setproductInCartList] = useState([]);
 
-    const [productList, setProducts] = useState([]);
+  useEffect(() => {
+    // Api call to get the list of products can be added here
+    setProducts(products);
+  }, []);
 
-    useEffect(() => {
-        // Api call to get the list of products can be added here
-        setProducts(products);
-      }, []);
+  function addItemToBasket(product) {
+    setproductInCartList([...productInCartList, product]);
+    console.log(productInCartList);
+  }
 
   return (
     <div className="App">
       <Header />
-      <Product 
-        productList={productList}
-      />
+      <Product productList={productList} addItemToBasket={addItemToBasket} />
     </div>
   );
 }
