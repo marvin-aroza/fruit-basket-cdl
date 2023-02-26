@@ -24,26 +24,33 @@ const Basket = () => {
   };
 
   return (
-    <div>
+    <div className="product-listing">
       {products.map((product) => (
-        <div key={product.id}>
-          <div>
+        <div className="product-card" key={product.id}>
+          <div className="product-image">
             <img
               src="https://www.collinsdictionary.com/images/full/apple_158989157.jpg"
               alt="Product"
             />
           </div>
-          <div>
-            <h2>{product.name}</h2>
-            <p>${product.price}</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div className="product-info">
+            <h2 className="product-title">{product.name}</h2>
+            <p className="product-price">${product.price}</p>
+            <p className="product-description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
             {product.specialOffer && (
-              <p>
+              <p className="product-price">
                 Special Offer: Buy {product.specialOffer.quantity} for{" "}
                 {product.specialOffer.price}
               </p>
             )}
-            <button onClick={() => addItemToBasket(product.id)}>
+          </div>
+          <div>
+            <button
+              className="add-to-cart"
+              onClick={() => addItemToBasket(product.id)}
+            >
               Add to Cart
             </button>
           </div>
