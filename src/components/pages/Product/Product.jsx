@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Basket.css";
+import "./Product.css";
 
 const products = [
   {
@@ -13,7 +13,7 @@ const products = [
   { id: 4, price: 15, name: "Dragon Fruit" },
 ];
 
-const Basket = () => {
+const Product = () => {
   const [basket, setBasket] = useState({});
 
   const addItemToBasket = (id) => {
@@ -22,6 +22,7 @@ const Basket = () => {
       [id]: (prevBasket[id] || 0) + 1,
     }));
   };
+
 
   return (
     <div className="product-listing">
@@ -60,4 +61,4 @@ const Basket = () => {
   );
 };
 
-export default Basket;
+export default Product;
