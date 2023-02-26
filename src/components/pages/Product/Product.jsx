@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import "./Product.css";
 
-const products = [
-  {
-    id: 1,
-    price: 50,
-    specialOffer: { quantity: 3, price: 130 },
-    name: "Apple",
-  },
-  { id: 2, price: 30, name: "Banana" },
-  { id: 3, price: 20, name: "Cat", specialOffer: { quantity: 2, price: 35 } },
-  { id: 4, price: 15, name: "Dragon Fruit" },
-];
-
-const Product = () => {
+export default function Product({productList}) {
   const [basket, setBasket] = useState({});
 
   const addItemToBasket = (id) => {
@@ -23,10 +11,10 @@ const Product = () => {
     }));
   };
 
-
   return (
+    <>
     <div className="product-listing">
-      {products.map((product) => (
+      {productList.map((product) => (
         <div className="product-card" key={product.id}>
           <div className="product-image">
             <img
@@ -58,7 +46,6 @@ const Product = () => {
         </div>
       ))}
     </div>
+    </>
   );
 };
-
-export default Product;
