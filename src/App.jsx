@@ -32,38 +32,24 @@ function App() {
   }, []);
 
   function addItemToBasket(product) {
-    setproductInCartList([...productInCartList, product]);
+    let productIndex = productInCartList.findIndex(
+      (p) => p.id === Number(product.id)
+    );
+
+    if (productIndex > -1) {
+      productInCartList[productIndex].cartQuanity =
+        productInCartList[productIndex].cartQuanity == null
+          ? 2
+          : productInCartList[productIndex].cartQuanity + 1;
+    } else {
+      product.cartQuanity = 1;
+      setproductInCartList([...productInCartList, product]);
+    }
+    console.log(productInCartList);
   }
 
   function deleteItemFromCart(product) {
     setproductInCartList(productInCartList.filter((item) => item !== product));
-  }
-
-//   Logic to improve
-  function calculateTotalCartPrice() {
-    let total = 0;
-    let tempCartItemList = productInCartList;
-
-    for (const {id, quantity} of productInCartList) {
-      const product = productInCartList.find((p) => p.id === Number(id));
-      console.log(product);
-      const { price, specialOffer } = product;
-
-    //   console.log(price, specialOffer, quantity);
-
-      if (specialOffer && quantity >= specialOffer.quantity) {
-        const specialOfferPrice =
-          Math.floor(quantity / specialOffer.quantity) * specialOffer.price;
-        const nonOfferQuantity = quantity % specialOffer.quantity;
-        const nonOfferPrice = nonOfferQuantity * price;
-
-        total += specialOfferPrice + nonOfferPrice;
-      } else {
-        total += quantity * price;
-      }
-    }
-
-    return total;
   }
 
   return (
@@ -74,7 +60,6 @@ function App() {
         <Cart
           productInCartList={productInCartList}
           deleteItemFromCart={deleteItemFromCart}
-          calculateTotalCartPrice={calculateTotalCartPrice}
         />
       </section>
     </div>
