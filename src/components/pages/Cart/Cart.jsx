@@ -2,25 +2,23 @@ import React from "react";
 import "./Cart.css";
 
 export default function Cart({ productInCartList, deleteItemFromCart }) {
-
+  /*Reduces the cart list to get the total of all the products added in cart*/
   let total = productInCartList.reduce((accumulator, cartProduct) => {
     const { cartQuanity, price, specialOffer } = cartProduct;
-  
+
     if (specialOffer && cartQuanity >= specialOffer.quantity) {
       const offerQuantity = Math.trunc(cartQuanity / specialOffer.quantity);
-      const nonOfferQuantity = Math.ceil(
-        cartQuanity % specialOffer.quantity
-      );
-  
+      const nonOfferQuantity = Math.ceil(cartQuanity % specialOffer.quantity);
+
       const offerPrice = offerQuantity * specialOffer.price;
       const nonOfferPrice = nonOfferQuantity * price;
-  
+
       return accumulator + (offerPrice + nonOfferPrice);
     } else {
-      return accumulator + (cartQuanity * price);
+      return accumulator + cartQuanity * price;
     }
   }, 0);
-  
+
   return (
     <>
       <div>
@@ -34,7 +32,7 @@ export default function Cart({ productInCartList, deleteItemFromCart }) {
                 {productInCartList.map((product) => (
                   <li key={product.id} className="cart-item">
                     <img
-                      src="https://www.collinsdictionary.com/images/full/apple_158989157.jpg"
+                      src={product.image}
                       alt="Item 1"
                     />
                     <div className="item-detail">

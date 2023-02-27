@@ -9,7 +9,7 @@ export default function Product({ productList, addItemToBasket }) {
           <div className="product-card" key={product.id}>
             <div className="product-image">
               <img
-                src="https://www.collinsdictionary.com/images/full/apple_158989157.jpg"
+                src={product.image}
                 alt="Product"
               />
             </div>
