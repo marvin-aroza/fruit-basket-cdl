@@ -39,8 +39,29 @@ function App() {
     setproductInCartList(productInCartList.filter((item) => item !== product));
   }
 
+//   Logic to improve
   function calculateTotalCartPrice() {
     let total = 0;
+    let tempCartItemList = productInCartList;
+
+    for (const {id, quantity} of productInCartList) {
+      const product = productInCartList.find((p) => p.id === Number(id));
+      console.log(product);
+      const { price, specialOffer } = product;
+
+    //   console.log(price, specialOffer, quantity);
+
+      if (specialOffer && quantity >= specialOffer.quantity) {
+        const specialOfferPrice =
+          Math.floor(quantity / specialOffer.quantity) * specialOffer.price;
+        const nonOfferQuantity = quantity % specialOffer.quantity;
+        const nonOfferPrice = nonOfferQuantity * price;
+
+        total += specialOfferPrice + nonOfferPrice;
+      } else {
+        total += quantity * price;
+      }
+    }
 
     return total;
   }
