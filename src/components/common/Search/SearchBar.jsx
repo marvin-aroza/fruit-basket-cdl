@@ -4,7 +4,7 @@ import "./SearchBar.css";
 function SearchBar({onSearch}) {
   return (
     <section>
-      <div class="search-box">
+      <div className="search-box">
         <input type="text" placeholder="Search Product..." onChange={onSearch}/>
         <button type="submit">Search</button>
       </div>

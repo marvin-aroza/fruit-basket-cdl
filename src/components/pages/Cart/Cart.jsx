@@ -2,29 +2,25 @@ import React from "react";
 import "./Cart.css";
 
 export default function Cart({ productInCartList, deleteItemFromCart }) {
-  function calculateTotalCartPrice() {
-    let total = 0;
 
-    productInCartList.forEach((cartProduct) => {
-        const { cartQuanity, price, specialOffer } = cartProduct;
-    
-        if (specialOffer && cartQuanity >= specialOffer.quantity) {
-          const offerQuantity = Math.trunc(cartQuanity / specialOffer.quantity);
-          const nonOfferQuantity = Math.ceil(
-            cartQuanity % specialOffer.quantity
-          );
-    
-          const offerPrice = offerQuantity * specialOffer.price;
-          const nonOfferPrice = nonOfferQuantity * price;
-    
-          total += offerPrice + nonOfferPrice;
-        } else {
-          total += cartQuanity * price;
-        }
-      });
-
-    return total;
-  }
+  let total = productInCartList.reduce((accumulator, cartProduct) => {
+    const { cartQuanity, price, specialOffer } = cartProduct;
+  
+    if (specialOffer && cartQuanity >= specialOffer.quantity) {
+      const offerQuantity = Math.trunc(cartQuanity / specialOffer.quantity);
+      const nonOfferQuantity = Math.ceil(
+        cartQuanity % specialOffer.quantity
+      );
+  
+      const offerPrice = offerQuantity * specialOffer.price;
+      const nonOfferPrice = nonOfferQuantity * price;
+  
+      return accumulator + (offerPrice + nonOfferPrice);
+    } else {
+      return accumulator + (cartQuanity * price);
+    }
+  }, 0);
+  
   return (
     <>
       <div>
@@ -43,7 +39,8 @@ export default function Cart({ productInCartList, deleteItemFromCart }) {
                     />
                     <div className="item-detail">
                       <h3>{product.name}</h3>
-                      <p>Price: ${product.price}</p>
+                      <p>Price: {product.price}p</p>
+                      <p>Quantity: {product.cartQuanity}</p>
                     </div>
                     <div className="remove-item-div">
                       <button onClick={() => deleteItemFromCart(product)}>
@@ -53,7 +50,7 @@ export default function Cart({ productInCartList, deleteItemFromCart }) {
                   </li>
                 ))}
                 <hr />
-                <div>{calculateTotalCartPrice()}</div>
+                <div>Total Cart Amount: {total} pence</div>
               </ul>
             ) : (
               <ul>No Items in cart</ul>

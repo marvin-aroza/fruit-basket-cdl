@@ -15,14 +15,14 @@ export default function Product({ productList, addItemToBasket }) {
             </div>
             <div className="product-info">
               <h2 className="product-title">{product.name}</h2>
-              <p className="product-price">${product.price}</p>
+              <p className="product-price">{product.price}p</p>
               <p className="product-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
               {product.specialOffer && (
                 <p className="product-price">
                   Special Offer: Buy {product.specialOffer.quantity} for{" "}
-                  {product.specialOffer.price}
+                  {product.specialOffer.price}p
                 </p>
               )}
             </div>
